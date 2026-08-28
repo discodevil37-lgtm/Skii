@@ -4,17 +4,14 @@ public class Tree : MonoBehaviour
 {
     private MeshRenderer rd;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rd = GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,16 +29,12 @@ public class Tree : MonoBehaviour
         if (player.HP <= 0)
         {
             player.HP = 0;
-            UIManager.Instance.ShowNotiText($"YOU ARE DEAD!!!!\nPoints: {player.HP}");
-            Time.timeScale = 0f;
-            UIManager.Instance.ShowHideRestartButton(true);
+            player.Die(); // สั่งแพ้ผ่าน Player.cs (ให้ผลเหมือนตอนตกแผ่นใต้ฉาก)
         }
-        
     }
 
     private void OnCollisionExit(Collision collision)
     {
         rd.material.color = new Color32(132, 79, 40, 255);
     }
-    
 }

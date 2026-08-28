@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject restartButton;
+
+    [SerializeField]
+    private GameObject mainMenuButton;
 
     [SerializeField]
     private Player player;
@@ -19,35 +23,55 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        ShowHideButtons(false);
     }
 
     public void ShowNotiText(string s)
     {
-        notiText.text = s;
+        if (notiText != null)
+        {
+            notiText.text = s;
+        }
+    }
+
+    // แสดงหน้าแพ้
+    public void ShowGameOver()
+    {
+        ShowNotiText("YOU DIE!!");
+        ShowHideButtons(true);
+    }
+
+    // แสดงหน้าชนะ (เปลี่ยนเฉพาะ Text + เปิดปุ่มชุดเดียวกัน)
+    public void ShowWinUI(int score)
+    {
+        ShowNotiText($"YOU WIN yay <3!\nPoints: {score}");
+        ShowHideButtons(true);
     }
 
     public void RestartGame()
     {
-        player.transform.position = new Vector3(0, 88, -86.2f);
-        player.HP = 100;
-        ShowNotiText("Restart ka");
         Time.timeScale = 1f;
-        ShowHideRestartButton(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ShowHideRestartButton(bool flag)
+    public void GoToMainMenu()
     {
-        restartButton.SetActive(flag);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Main Menu"); 
     }
-    
+
+    public void ShowHideButtons(bool flag)
+    {
+        if (restartButton != null)
+        {
+            restartButton.SetActive(flag);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(flag);
+        }
+    }
 }

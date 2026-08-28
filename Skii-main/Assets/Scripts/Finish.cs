@@ -2,18 +2,6 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Player p = other.GetComponent<Player>();
@@ -21,6 +9,6 @@ public class Finish : MonoBehaviour
         if (p == null)
             return;
 
-        UIManager.Instance.ShowNotiText($"YOU WIN yay<3!\nPoints: {p.Point}");
+        p.Win(); // สั่งให้ผู้เล่นชนะ
     }
 }
